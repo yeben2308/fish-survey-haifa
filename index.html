@@ -166,18 +166,17 @@
       btn.disabled = true;
 
       try {
-        const fd = new FormData();
-        fd.append("accessCode", accessCode);
-        fd.append("fish", fish);
-        fd.append("frequency", document.getElementById("frequency").value);
-        fd.append("format", document.getElementById("format").value);
-        fd.append("reason", document.getElementById("reason").value);
-        fd.append("role", document.getElementById("role").value);
-        fd.append("ageGroup", document.getElementById("ageGroup").value);
-        fd.append("device", navigator.userAgent);
+const data = new URLSearchParams();
+data.append("fish", fish);
+data.append("frequency", document.getElementById("frequency").value);
+data.append("format", document.getElementById("format").value);
+data.append("reason", document.getElementById("reason").value);
+data.append("role", document.getElementById("role").value);
+data.append("ageGroup", document.getElementById("ageGroup").value);
+data.append("device", navigator.userAgent);
 
-        // no-cors כדי להימנע מחסימות CORS של Apps Script בדפדפנים מסוימים
-        await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: fd });
+// no-cors כדי לא להיתקע על CORS מול Apps Script
+await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: data });
 
         success.style.display = "block";
       } catch (e) {
@@ -190,6 +189,7 @@
 </body>
 
 </html>
+
 
 
 
