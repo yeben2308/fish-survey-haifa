@@ -177,7 +177,7 @@ data.append("device", navigator.userAgent);
 
 // no-cors כדי לא להיתקע על CORS מול Apps Script
 await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: data });
-
+        
         success.style.display = "block";
       } catch (e) {
         err.style.display = "block";
@@ -189,6 +189,7 @@ await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: data });
 </body>
 
 </html>
+
 
 
 
