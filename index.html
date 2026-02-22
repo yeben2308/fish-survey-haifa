@@ -139,8 +139,8 @@
   </div>
 
   <script>
-    const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzr_eGrrQBBFS98OJVN_Sl7b1u5eekZdLhGD6dNRlMlsNS6JXBt18p8GAhBgBg74Sst/exec";
-
+const SCRIPT_URL = "https://script.google.com/macros/s/AKfycbzr_eGrrQBBFS98OJVN_Sl7b1u5eekZdLhGD6dNRlMlsNS6JXBt18p8GAhBgBg74Sst/exec";
+    
     function getSelectedFish() {
       const el = document.querySelector('input[name="fish"]:checked');
       return el ? el.value : "";
@@ -189,6 +189,7 @@ await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: data });
 </body>
 
 </html>
+
 
 
 
