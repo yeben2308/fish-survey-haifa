@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="he" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>סקר העדפת דגים – מחוז חיפה</title>
+  <style>
+    body { margin:0; font-family: Arial, sans-serif; background:#f6f7fb; color:#111; }
+    .wrap { max-width: 520px; margin: 0 auto; padding: 16px; }
+    .card { background:#fff; border-radius:16px; padding:16px; box-shadow: 0 6px 18px rgba(0,0,0,.08); }
+    h1 { font-size: 20px; margin: 0 0 6px; }
+    .sub { font-size: 13px; color:#444; margin-bottom: 14px; line-height: 1.35; }
+    .field { margin: 12px 0; }
+    label { display:block; font-weight:700; margin-bottom:6px; font-size: 14px; }
+    .grid { display:grid; gap:10px; grid-template-columns: 1fr; }
+    .option {
+      border:1px solid #d7dbe7; border-radius:12px; padding:12px;
+      display:flex; align-items:center; gap:10px; background:#fafbff;
+    }
+    .option input { transform: scale(1.2); }
+    select, input[type="text"] {
+      width:100%; padding:12px; border-radius:12px; border:1px solid #d7dbe7;
+      font-size: 14px; background:#fff;
+    }
+    .btn {
+      width:100%; padding:14px; border-radius:14px; border:0;
+      font-weight:700; font-size: 16px; cursor:pointer; background:#1f3cff; color:#fff;
+    }
+    .btn:disabled { opacity:.6; cursor:not-allowed; }
+    .note { font-size: 12px; color:#555; margin-top: 10px; line-height:1.4; }
+    .success { display:none; margin-top: 12px; padding: 12px; border-radius: 12px; background:#eefaf0; border:1px solid #cce7d1; }
+    .err { display:none; margin-top: 12px; padding: 12px; border-radius: 12px; background:#fff2f2; border:1px solid #f0c6c6; }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <div class="card">
+      <h1>סקר קצר: איזה דג את/ה מעדיפ/ה</h1>
+      <div class="sub">
+        מטרה: להבין העדפה בין טונה, דניס או קרפיון<br>
+        משך מילוי: פחות מדקה. נתונים נשמרים בגיליון פנימי לצורכי ניתוח בלבד
+      </div>
+
+      <div class="field">
+        <label>קוד גישה</label>
+        <input id="accessCode" type="text" placeholder="לדוגמה: HAIFA2026" autocomplete="off">
+      </div>
+
+      <div class="field">
+        <label>בחירה עיקרית</label>
+        <div class="grid">
+          <div class="option"><input type="radio" name="fish" value="טונה" id="fish1"><label for="fish1" style="margin:0;font-weight:600;">טונה</label></div>
+          <div class="option"><input type="radio" name="fish" value="דניס" id="fish2"><label for="fish2" style="margin:0;font-weight:600;">דניס</label></div>
+          <div class="option"><input type="radio" name="fish" value="קרפיון" id="fish3"><label for="fish3" style="margin:0;font-weight:600;">קרפיון</label></div>
+        </div>
+      </div>
+
+      <div class="field">
+        <label>תדירות צריכה</label>
+        <select id="frequency">
+          <option value="">בחר/י</option>
+          <option>לפחות פעם בשבוע</option>
+          <option>פעם בחודש</option>
+          <option>בעיקר בחגים</option>
+          <option>כמעט לא</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>איך לרוב צורכים</label>
+        <select id="format">
+          <option value="">בחר/י</option>
+          <option>טרי</option>
+          <option>קפוא</option>
+          <option>שימורים</option>
+          <option>לא משנה</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>סיבה מרכזית</label>
+        <select id="reason">
+          <option value="">בחר/י</option>
+          <option>טעם</option>
+          <option>מחיר</option>
+          <option>בריאות ותזונה</option>
+          <option>זמינות ונוחות</option>
+          <option>מסורת</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>תפקיד</label>
+        <select id="role">
+          <option value="">בחר/י</option>
+          <option>הוראה</option>
+          <option>ניהול</option>
+          <option>מטה/מינהל</option>
+          <option>אחר</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>קבוצת גיל</label>
+        <select id="ageGroup">
+          <option value="">בחר/י</option>
+          <option>עד 30</option>
+          <option>31–40</option>
+          <option>41–50</option>
+          <option>51–60</option>
+          <option>61+</option>
+        </select>
+      </div>
+
+      <button id="submitBtn" class="btn">שליחת הצבעה</button>
+
+      <div id="success" class="success">ההצבעה נשלחה. תודה</div>
+      <div id="err" class="err">לא הצלחנו לשלוח. בדקו קוד גישה וחיבור אינטרנט ונסו שוב</div>
+
+      <div class="note">
+        הערה: האתר לא שומר פרטים מזהים. נשמרים רק התשובות, תאריך ושעה, ונתון מכשיר כללי לצורכי בדיקות טכניות
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const SCRIPT_URL = "SCRIPT_URL_HERE";
+
+    function getSelectedFish() {
+      const el = document.querySelector('input[name="fish"]:checked');
+      return el ? el.value : "";
+    }
+
+    document.getElementById("submitBtn").addEventListener("click", async () => {
+      const btn = document.getElementById("submitBtn");
+      const success = document.getElementById("success");
+      const err = document.getElementById("err");
+      success.style.display = "none";
+      err.style.display = "none";
+
+      const accessCode = document.getElementById("accessCode").value.trim();
+      const fish = getSelectedFish();
+
+      // ולידציה מינימלית בצד לקוח
+      if (!accessCode || !fish) {
+        err.style.display = "block";
+        err.textContent = "חסר קוד גישה או בחירה עיקרית";
+        return;
+      }
+
+      btn.disabled = true;
+
+      try {
+        const fd = new FormData();
+        fd.append("accessCode", accessCode);
+        fd.append("fish", fish);
+        fd.append("frequency", document.getElementById("frequency").value);
+        fd.append("format", document.getElementById("format").value);
+        fd.append("reason", document.getElementById("reason").value);
+        fd.append("role", document.getElementById("role").value);
+        fd.append("ageGroup", document.getElementById("ageGroup").value);
+        fd.append("device", navigator.userAgent);
+
+        // no-cors כדי להימנע מחסימות CORS של Apps Script בדפדפנים מסוימים
+        await fetch(SCRIPT_URL, { method: "POST", mode: "no-cors", body: fd });
+
+        success.style.display = "block";
+      } catch (e) {
+        err.style.display = "block";
+      } finally {
+        btn.disabled = false;
+      }
+    });
+  </script>
+</body>
+</html>
